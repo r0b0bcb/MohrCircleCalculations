@@ -30,6 +30,7 @@ eqn1 = (n1 - h)^2 + ( s1 - k)^2 == r^2;
 eqn2 = (n2 - h)^2 + ( s2 - k)^2 == r^2;
 eqn3 = (n1 - h)^2 + (-s1 - k)^2 == r^2;
 
+%if getting errors, try solving for h k r a diff way, had errors with solve later
 center = solve([eqn1, eqn2, eqn3], [h, k, r], 'principalValue', true);
 R = center.r;
 C = center.h;
@@ -49,11 +50,12 @@ sigma1 = sigma.sig3;
 fprintf('Sigma 1: %.2f \nSigma 3: %.2f \n', sigma1, sigma3);
 
 %Use sigma 1,3 to calc angle between them
+%using solve funtion provided errors so redid the old fashion way and reordered the eq for angle theta (q)
 q1 = acosd((n1 - (sigma1 + sigma3) /2) / ((sigma1 - sigma3) /2))/2;
 q2 = acosd((n2 - (sigma1 + sigma3) /2) / ((sigma1 - sigma3) /2))/2;
 
 %angle1 = abs(solve(eqn6, q1, 'principalValue', false));
 %angle2 = abs(solve(eqn7, q2, 'principalValue', false));
 fprintf('Angles: %.2f, %.2f\n', q1, q2);
-fprintf('Angle between planes: %.2fº\n', q1-q2);
+fprintf('Angle between planes: %.2fÂº\n', q1-q2);
 
