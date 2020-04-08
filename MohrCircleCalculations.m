@@ -34,23 +34,26 @@ center = solve([eqn1, eqn2, eqn3], [h, k, r], 'principalValue', true);
 R = center.r;
 C = center.h;
 
-fprintf('Center: %i , %i \n If not on x axis, then some error has occurred\n', C, center.k);
-fprintf('Radius: %i \n', abs(R));
+fprintf('Center: %.2f , %.2f \n If not on x axis, then some error has occurred\n', C, center.k);
+fprintf('Radius: %.2f \n', abs(R));
 
 %Use center and radius to get principal stresses sig1 sig3
 syms sig1 sig3
 eqn4 = (sig1 - sig3)/2 == R;
 eqn5 = (sig1 + sig3)/2 == C;
 
-sigma = solve([eqn4, eqn5], [sig1, sig3], 'principalValue', true);
-sigma1 = sigma.sig1;
-sigma3 = sigma.sig3;
+sigma = solve([eqn4, eqn5], [sig1, sig3], 'principalValue', false);
+sigma3 = sigma.sig1; %idk why matlab swaps these? doing by hand gets this result like this
+sigma1 = sigma.sig3;
 
-fprintf('Sigma 1: %i \nSigma 3: %i \n', sigma1, sigma3);
+fprintf('Sigma 1: %.2f \nSigma 3: %.2f \n', sigma1, sigma3);
 
-%use sigma 1,3 to calc angle between them
-syms q
-eqn6 = (sigma1 - sigma3)/2 * sind(2 * q) == s1;
-angle = abs(solve(eqn6, q, 'principalValue', true));
-fprintf('Angle between planes: %iº\n', angle);
+%Use sigma 1,3 to calc angle between them
+q1 = acosd((n1 - (sigma1 + sigma3) /2) / ((sigma1 - sigma3) /2))/2;
+q2 = acosd((n2 - (sigma1 + sigma3) /2) / ((sigma1 - sigma3) /2))/2;
+
+%angle1 = abs(solve(eqn6, q1, 'principalValue', false));
+%angle2 = abs(solve(eqn7, q2, 'principalValue', false));
+fprintf('Angles: %.2f, %.2f\n', q1, q2);
+fprintf('Angle between planes: %.2fº\n', q1-q2);
 
