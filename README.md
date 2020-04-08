@@ -1,6 +1,6 @@
 # MohrCircleCalculations
 > Matlab to calculate the center, radius, σ1 and σ3 from two stress planes on the Mohr Circle
-
+## Getting some errors rn relating to the matlab solve funt, not working as is...
 ### Center, radius, σ1 and σ3 from two stress planes on the Mohr Circle
 ______________________
 **Inputs:** Sigma normal and Sigma shear of two planes
